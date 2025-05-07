@@ -20,3 +20,13 @@ def character_frequency(book_contents):
     return char_dict
 
 
+def sorted_dict(char_count):
+    sorted_char_list = []
+
+    for char,count in char_count.items():
+        if char.isalpha():
+            sorted_char_list.append(({'char': char, 'num': count}))
+    sorted_char_list.sort(key=lambda x: x["num"], reverse=True)
+
+    return sorted_char_list
+

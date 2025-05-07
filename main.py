@@ -1,30 +1,40 @@
-from stats import num_of_words, convert_to_lower, character_frequency
+from stats import num_of_words, convert_to_lower, character_frequency, sorted_dict
+import sys
+
 
 def get_book_text(bookpath):
     file_contents = bookpath.read()
     return file_contents
 
 
+
 def main():
-    with open("/home/nicb/Documents/bookbot/books/frankenstein.txt") as bookpath:
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    with open(file_path) as bookpath:
         book_contents = get_book_text(bookpath)
         word_count = num_of_words(book_contents)
 
-        print(word_count, "words found in the document")
+        print("============ BOOKBOT ============")
+        print("Analyzing book found at", file_path, "...")
+        print("----------- Word Count ----------")
+        print("Found", word_count, "total words")
+        print("--------- Character Count -------")
 
         lowercase_contents = convert_to_lower(book_contents)
 
         char_freq = character_frequency(lowercase_contents)
 
-        print(char_freq)
+        #print(char_freq)
 
-        #formatted = '{' + ','.join(f"'{k}':{v}" for k, v in char_freq.items()) + '}'
-        #print(formatted)
-       
-        
-        #for key in char_freq:
-            #print(key, ":", char_freq[key])
-           
+        sorted_char_count = sorted_dict(char_freq)
+        for item in sorted_char_count:
+            print(f"{item['char']}: {item['num']}")
+        print("============= END ===============")
+             
         
 
 
